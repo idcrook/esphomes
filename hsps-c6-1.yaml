@@ -1,0 +1,59 @@
+---
+esphome:
+  name: hsps-c6-1
+
+esp32:
+  board: esp32-c6-devkitm-1
+  variant: esp32c6
+  framework:
+    type: esp-idf
+    version: 5.3.1 # https://github.com/espressif/esp-idf/releases/tag/v5.3.1
+    # version: 5.2.2
+    platform_version: 6.10.0
+    sdkconfig_options:
+      CONFIG_ESPTOOLPY_FLASHSIZE_4MB: y
+      # CONFIG_ESPTOOLPY_FLASHSIZE_DETECT: y
+      # COMPILER_OPTIMIZATION_SIZE: y
+
+# Enable logging
+logger:
+  level: DEBUG
+
+uart:
+  baud_rate: 256000
+  rx_pin: 2
+  tx_pin: 21
+
+ld2410:
+
+binary_sensor:
+  - platform: ld2410
+    has_target:
+      name: Presence
+    has_moving_target:
+      name: Moving Target
+    has_still_target:
+      name: Still Target
+    out_pin_presence_status:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  - platform: esphome
+    password: ""
+
+wifi:
+  ssid: !secret wifi1_ssid
+  password: !secret wifi1_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: !secret hsps_c6_1_fallback_ap_ssid
+    password: !secret hsps_c6_1_fallback_ap_password
+
+captive_portal:
+
+# bluetooth_proxy:
+#   active: True
