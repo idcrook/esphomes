@@ -1,0 +1,29 @@
+---
+esphome:
+  name: picow-blink
+
+rp2040:
+  board: rpipicow
+
+# Enable logging
+logger:
+  level: DEBUG
+
+
+output:
+  - platform: gpio
+    pin:
+      number: 25
+      mode: output
+    id: LED
+
+interval:
+  - interval: 500ms
+    then:
+      - output.turn_on: LED
+      - delay: 250ms
+      - output.turn_off: LED
+
+wifi:
+  ssid: !secret wifi1_ssid
+  password: !secret wifi1_password
