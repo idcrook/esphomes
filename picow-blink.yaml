@@ -24,6 +24,10 @@ interval:
       - delay: 250ms
       - output.turn_off: LED
 
+sensor:
+  - platform: internal_temperature
+    name: "Internal Temperature"
+
 wifi:
   ssid: !secret wifi1_ssid
   password: !secret wifi1_password
