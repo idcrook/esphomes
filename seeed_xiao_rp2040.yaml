@@ -1,0 +1,41 @@
+---
+# https://koen.vervloesem.eu/blog/using-esphome-on-the-raspberry-pi-pico-w-and-other-rp2040-microcontroller-boards/
+esphome:
+  name: xiao-rp2040
+  friendly_name: Xiao RP2040
+  on_boot:
+    then:
+      - output.turn_on:
+          id: led_rgb_enable
+      - light.turn_on:
+          id: led_rgb
+          effect: "Random colors"
+
+rp2040:
+  board: seeed_xiao_rp2040
+  framework:
+    # Required until https://github.com/platformio/platform-raspberrypi/pull/36
+    # is merged
+    platform_version: https://github.com/maxgerhardt/platform-raspberrypi.git
+
+# Enable logging
+logger:
+
+output:
+  - platform: gpio
+    pin: 11
+    id: led_rgb_enable
+
+light:
+  - platform: rp2040_pio_led_strip
+    id: led_rgb
+    pin: 12
+    num_leds: 1
+    pio: 0
+    rgb_order: GRB
+    chipset: WS2812
+    effects:
+      - random:
+          name: "Random colors"
+          transition_length: 1s
+          update_interval: 1s
