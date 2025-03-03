@@ -9,20 +9,44 @@ rp2040:
 logger:
   level: DEBUG
 
+# https://esphome.io/components/light/rp2040_pio_led_strip.html
+light:
+  - platform: rp2040_pio_led_strip
+    name: your_preferred_name
+    id: led_strip
+    pin: GPIO15
+    num_leds: 50
+    pio: 0
+    rgb_order: RGB
+    chipset: WS2812
+    # chipset: WS2812B
 
-output:
-  - platform: gpio
-    pin:
-      number: 25
-      mode: output
-    id: LED
+# output:
+#   - platform: gpio
+#     id: yellow_led
+#     pin: GPIO15
+#     # inverted: True
 
-interval:
-  - interval: 500ms
-    then:
-      - output.turn_on: LED
-      - delay: 250ms
-      - output.turn_off: LED
+#   - platform: custom
+#     type: binary
+#     lambda: |-
+#       auto picowLED = new picow_intLED();
+#       App.register_component(picowLED);
+#       return {picowLED};
+
+#     outputs:
+#       id: picowLED
+
+# light:
+#   - platform: binary
+#     name: "${device_name} - Yellow LED"
+#     id: yellow_led_light
+#     output: yellow_led
+#     # internal: true
+#   - platform: binary
+#     name: "${device_name} - Internal LED"
+#     id: intLED
+#     output: picowLED
 
 sensor:
   - platform: internal_temperature
