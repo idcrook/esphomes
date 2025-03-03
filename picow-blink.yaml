@@ -35,33 +35,16 @@ interval:
       - delay: 500ms
       - output.turn_off: led
 
-
+# # Dimmable
 # output:
-#   - platform: gpio
-#     id: yellow_led
-#     pin: GPIO15
-#     # inverted: True
-
-#   - platform: custom
-#     type: binary
-#     lambda: |-
-#       auto picowLED = new picow_intLED();
-#       App.register_component(picowLED);
-#       return {picowLED};
-
-#     outputs:
-#       id: picowLED
+#   - platform: rp2040_pwm
+#     pin: 15
+#     id: led
 
 # light:
-#   - platform: binary
-#     name: "${device_name} - Yellow LED"
-#     id: yellow_led_light
-#     output: yellow_led
-#     # internal: true
-#   - platform: binary
-#     name: "${device_name} - Internal LED"
-#     id: intLED
-#     output: picowLED
+#   - platform: monochromatic
+#     name: "Dimmable LED"
+#     output: led
 
 sensor:
   - platform: internal_temperature
