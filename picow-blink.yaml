@@ -21,6 +21,21 @@ light:
     chipset: WS2812
     # chipset: WS2812B
 
+
+# for Pico W (different GPIO)
+output:
+  - platform: gpio
+    pin: 32
+    id: led
+
+interval:
+  - interval: 1000ms
+    then:
+      - output.turn_on: led
+      - delay: 500ms
+      - output.turn_off: led
+
+
 # output:
 #   - platform: gpio
 #     id: yellow_led
